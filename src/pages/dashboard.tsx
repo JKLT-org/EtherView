@@ -1,8 +1,15 @@
 import React from 'react'
+import Header from '../components/Header'
+import Sidebar from '../components/Sidebar'
+type Props = {}
 
-const Dashboard: React.FC = () => {
+
+function Dashboard({}: Props) {
   return (
-    <div>Dashboard</div>
+    <div>
+    <Header/>
+    <Sidebar/>
+    </div>
   )
 }
 

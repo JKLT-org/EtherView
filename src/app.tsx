@@ -1,7 +1,9 @@
 import React from 'react'
 import Dashboard from './pages/Dashboard'
 
-const App: React.FC = () => {
+type Props = {}
+
+const app = (props: Props) => {
   return (
     <div>
         <Dashboard />
@@ -9,4 +11,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default app
