@@ -1,14 +1,22 @@
-import React from 'react'
-import Dashboard from './pages/Dashboard'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { Login } from './pages/Login';
 
-type Props = {}
+ const App = () => {
+    return (
+        <div className="App" >
+            Here is our app!
+            <header className="App-header">
+            </header>
+            <Router>
+                <Routes>
+                    <Route path='/' element={<Login/>}/>
+                </Routes> 
+            </Router>
+        </div>
 
-const app = (props: Props) => {
-  return (
-    <div>
-        <Dashboard />
-    </div>
-  )
+    )
 }
 
-export default app
+export default App;
+

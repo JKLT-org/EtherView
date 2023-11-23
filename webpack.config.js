@@ -4,7 +4,8 @@ const isDockerBuild = process.env.DOCKER_BUILD === 'true';
 
 module.exports = {
   mode: "development",
-  entry: isDockerBuild ? "./App.tsx" : "./src/App.tsx",
+  entry: isDockerBuild ? "./App.tsx" : "./src/main.tsx",
+  // entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
