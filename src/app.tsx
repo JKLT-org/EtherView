@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import { Login } from './Login';
+import { Login } from './pages/Login';
 
-export const App = () => {
+ const App = () => {
     return (
         <div className="App" >
             Here is our app!
@@ -11,10 +11,12 @@ export const App = () => {
             <Router>
                 <Routes>
                     <Route path='/' element={<Login/>}/>
-                </Routes>
+                </Routes> 
             </Router>
         </div>
 
     )
 }
+
+export default App;
 
