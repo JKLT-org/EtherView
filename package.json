@@ -4,6 +4,7 @@
   "description": "Welcome to Katalog: An open source app to visualize all your logs",
   "main": "index.js",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
@@ -25,6 +26,7 @@
     "jsonwebtoken": "9.0.2",
     "mongodb": "5.7.0",
     "mongoose": "7.4.3",
+    "node-fetch": "^3.3.2",
     "pg": "^8.11.3",
     "prop-types": "15.8.1",
     "react": "18.2.0",
