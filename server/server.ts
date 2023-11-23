@@ -34,8 +34,22 @@ app.use(express.urlencoded({ extended: true }));
 // use all routes in routes folder
 app.use('/api', router);
 
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// app.get("/", (req, res) => {
+//   return res.status(200).sendFile(path.resolve(__dirname, "./src/index.html"));
+// });
+
+app.get("/", (req, res) => {
+  return res.status(200).sendFile(path.resolve(__dirname, "dist", "index.html"));
+});
+
+
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('404 page not found'));
+
+
 
 // global error handler
 app.use((err, req, res, next) => {
