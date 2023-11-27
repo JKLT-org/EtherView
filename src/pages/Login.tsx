@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import { useState } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
  const Login = () => {
@@ -9,6 +10,7 @@ import { useState } from 'react';
     const [loginError, setLoginError] = useState(false); 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
   const loginBoxStyle: CSSProperties = {
     display: 'flex',
@@ -16,7 +18,7 @@ import { useState } from 'react';
     alignItems: 'center',
     justifyContent: 'center',
     width: '350px',
-    padding: '40px',
+    padding: '15px',
     margin: '10% auto',
     border: '1px solid #eaeaea',
     borderRadius: '15px',
@@ -24,14 +26,6 @@ import { useState } from 'react';
     backgroundColor: '#f7f7f7',
   };
 
-  const inputStyle: CSSProperties = {
-    width: '100%',
-    padding: '15px',
-    margin: '10px 0',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
-    fontSize: '16px',
-  };
 
   const buttonStyle: CSSProperties = {
     width: '100%',
@@ -67,6 +61,44 @@ import { useState } from 'react';
     transition: 'background-color 0.3s, color 0.3s',
   };
 
+  const inputIcon: CSSProperties = {
+    position: 'relative',
+    display: 'flex',
+    width: '100%', 
+    marginBottom: '15px',
+    marginTop: '20px'
+  };
+  
+  const iconStyle: CSSProperties = {
+    position: 'absolute',
+    left: '10px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    pointerEvents: 'none',
+    color: '#6c757d', 
+  };
+  
+  const inputStyle: CSSProperties = {
+    width: '100%',
+    padding: '15px 40px 15px 30px', 
+    margin: '0',
+    borderRadius: '8px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+    outline: 'none', 
+  };
+  
+  const eyeIconStyle: CSSProperties = {
+    position: 'absolute',
+    right: '10px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    color: '#6c757d',
+    fontSize: '16px'
+  };
+  
+
   const signUpClick = () => {
     navigate('/signup')
   }
@@ -79,9 +111,9 @@ import { useState } from 'react';
     setPassword(e.target.value);
   };
 
-//   const handleEmailChange = (e) => {
-//     setEmail(e.target.value);
-//   }
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -103,25 +135,39 @@ import { useState } from 'react';
         })
   }
 
-
-//   return (
+// return (
 //     <div style={loginBoxStyle}>
-//     {loginError && <p style={{ color: 'red' }}>Invalid login information. Please try again or <a href="/signup">sign up</a>.</p>}
-//       <input type="text" placeholder="Username" value={username} style={inputStyle} />
-//       <input type="password" placeholder="Password" style={inputStyle} />
-//       <button style={buttonStyle}>Sign In</button>
+//       {loginError && <p style={{ color: 'red' }}>Invalid login information. Please try again or <a href="/signup">sign up</a>.</p>}
+  
+//       <form onSubmit={handleLogin}>
+//         <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} style={inputStyle} />
+//         <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} style={inputStyle} />
+//         <button type="submit" style={buttonStyle}>Sign In</button>
+//       </form>
+  
 //       <a href="#forgot-password" style={linkStyle}>Forgot Password?</a>
 //       <button style={secondaryButtonStyle} onClick={signUpClick}>Don't have an account yet? Create one now</button>
 //     </div>
 //   );
+
+
 
 return (
     <div style={loginBoxStyle}>
       {loginError && <p style={{ color: 'red' }}>Invalid login information. Please try again or <a href="/signup">sign up</a>.</p>}
   
       <form onSubmit={handleLogin}>
-        <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} style={inputStyle} />
-        <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} style={inputStyle} />
+        <div style={inputIcon}>
+          <i className="fas fa-user" style={iconStyle}></i>
+          <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} style={inputStyle} />
+        </div>
+
+        <div style={inputIcon}>
+          <i className="fas fa-lock" style={iconStyle}></i>
+          <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={handlePasswordChange} style={inputStyle} />
+          <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`} onClick={togglePasswordVisibility} style={eyeIconStyle}></i>
+        </div>
+        
         <button type="submit" style={buttonStyle}>Sign In</button>
       </form>
   
@@ -129,6 +175,8 @@ return (
       <button style={secondaryButtonStyle} onClick={signUpClick}>Don't have an account yet? Create one now</button>
     </div>
   );
+
+
   
 }
 
