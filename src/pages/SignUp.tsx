@@ -1,11 +1,9 @@
 import React, { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import axios from 'axios';
 
-
-export const Login = () => {
+export const SignUp = () => {
     const navigate = useNavigate();
-  const loginBoxStyle: CSSProperties = {
+  const signUpBoxStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -49,45 +47,19 @@ export const Login = () => {
     fontSize: '14px',
   };
 
-  const secondaryButtonStyle: CSSProperties = {
-    marginTop: '15px',
-    backgroundColor: 'transparent',
-    color: '#09203f',
-    border: '1px solid #09203f',
-    padding: '15px',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s, color 0.3s',
+
+  const goToLogin = () => {
+    navigate('/');
   };
 
-  const signUpClick = () => {
-    navigate('/signup')
-  }
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    const user = {
-        username: username,
-        password: password,
-        email: email
-    };
-
-    axios
-        .post('http://localhost:')
-  }
-
-
   return (
-    <div style={loginBoxStyle}>
+    <div style={signUpBoxStyle}>
+      <input type="email" placeholder="Email" style={inputStyle} />
       <input type="text" placeholder="Username" style={inputStyle} />
       <input type="password" placeholder="Password" style={inputStyle} />
-      <button style={buttonStyle}>Sign In</button>
-      <a href="#forgot-password" style={linkStyle}>Forgot Password?</a>
-      <button style={secondaryButtonStyle} onClick={signUpClick}>Don't have an account yet? Create one now</button>
+      <input type="password" placeholder="Confirm Password" style={inputStyle} />
+      <button style={buttonStyle}>Sign Up</button>
+      <a onClick={goToLogin} style={linkStyle}>Already have an account? Sign In</a>
     </div>
   );
-}
-
+};

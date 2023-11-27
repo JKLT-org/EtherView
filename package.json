@@ -12,6 +12,7 @@
     "@mui/system": "5.11.9",
     "@types/react-is": "18.2.3",
     "ace-builds": "1.29.0",
+    "axios": "^1.6.2",
     "bcryptjs": "2.4.3",
     "chart.js": "4.4.0",
     "connect-mongo": "5.0.0",
