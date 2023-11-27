@@ -7,6 +7,8 @@ export const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [mismatch, setMismatch] = useState(false);
 
   const signUpBoxStyle: CSSProperties = {
     display: 'flex',
@@ -69,8 +71,12 @@ export const SignUp = () => {
     setPassword(event.target.value);
   };
 
+  const handleConfirmChange = (e) => {
+    setConfirm(e.target.value);
+  }
   const handleSignup = async (event) => {
     event.preventDefault();
+    if (password === confirm) {
     try {
       const response = await axios.post('http://localhost:3000/api/signup', {
         username,
@@ -83,10 +89,14 @@ export const SignUp = () => {
       //Handle error, can we send back what caused the error? like if email address already in use etc, so we can show message? 
       console.error(error);
     }
+  } else {
+    setMismatch(true);
+  }
   };
 
   return (
     <div style={signUpBoxStyle}>
+      {mismatch && <p  style={{ color: 'red' }}> Passwords do not match. Please try again. </p>}
       <form onSubmit={handleSignup}>
         <input
           type="email"
@@ -107,6 +117,12 @@ export const SignUp = () => {
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
+          style={inputStyle}
+        />
+        <input
+          type="password"
+          placeholder="Confirm password"
+          onChange={handleConfirmChange}
           style={inputStyle}
         />
         <button type="submit" style={buttonStyle}>Sign Up</button>
