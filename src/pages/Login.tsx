@@ -1,10 +1,15 @@
 import React, { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
+import { useState } from 'react';
 
 
-export const Login = () => {
+ const Login = () => {
     const navigate = useNavigate();
+    const [loginError, setLoginError] = useState(false); 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
   const loginBoxStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -66,28 +71,66 @@ export const Login = () => {
     navigate('/signup')
   }
 
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+//   const handleEmailChange = (e) => {
+//     setEmail(e.target.value);
+//   }
+
   const handleLogin = (e) => {
     e.preventDefault();
-
+    console.log('login attempted');
     const user = {
         username: username,
-        password: password,
-        email: email
+        password: password
     };
 
     axios
-        .post('http://localhost:')
+        .post('http://localhost:3000/api/login', user)
+        .then(response=> {
+            console.log('Login successful!');
+            navigate('/dashboard');
+        })
+        .catch(error => {
+            console.log('Login failed:', error);
+            setLoginError(true);
+        })
   }
 
 
-  return (
+//   return (
+//     <div style={loginBoxStyle}>
+//     {loginError && <p style={{ color: 'red' }}>Invalid login information. Please try again or <a href="/signup">sign up</a>.</p>}
+//       <input type="text" placeholder="Username" value={username} style={inputStyle} />
+//       <input type="password" placeholder="Password" style={inputStyle} />
+//       <button style={buttonStyle}>Sign In</button>
+//       <a href="#forgot-password" style={linkStyle}>Forgot Password?</a>
+//       <button style={secondaryButtonStyle} onClick={signUpClick}>Don't have an account yet? Create one now</button>
+//     </div>
+//   );
+
+return (
     <div style={loginBoxStyle}>
-      <input type="text" placeholder="Username" style={inputStyle} />
-      <input type="password" placeholder="Password" style={inputStyle} />
-      <button style={buttonStyle}>Sign In</button>
+      {loginError && <p style={{ color: 'red' }}>Invalid login information. Please try again or <a href="/signup">sign up</a>.</p>}
+  
+      <form onSubmit={handleLogin}>
+        <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} style={inputStyle} />
+        <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} style={inputStyle} />
+        <button type="submit" style={buttonStyle}>Sign In</button>
+      </form>
+  
       <a href="#forgot-password" style={linkStyle}>Forgot Password?</a>
       <button style={secondaryButtonStyle} onClick={signUpClick}>Don't have an account yet? Create one now</button>
     </div>
   );
+  
 }
+
+export default Login;
 

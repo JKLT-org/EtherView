@@ -1,8 +1,13 @@
-import React, { CSSProperties } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState, CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const SignUp = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
   const signUpBoxStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -47,18 +52,65 @@ export const SignUp = () => {
     fontSize: '14px',
   };
 
-
   const goToLogin = () => {
     navigate('/');
   };
 
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/api/signup', {
+        username,
+        email,
+        password,
+      });
+      console.log(response.data);
+      navigate('/dashboard');
+    } catch (error) {
+      //Handle error, can we send back what caused the error? like if email address already in use etc, so we can show message? 
+      console.error(error);
+    }
+  };
+
   return (
     <div style={signUpBoxStyle}>
-      <input type="email" placeholder="Email" style={inputStyle} />
-      <input type="text" placeholder="Username" style={inputStyle} />
-      <input type="password" placeholder="Password" style={inputStyle} />
-      <input type="password" placeholder="Confirm Password" style={inputStyle} />
-      <button style={buttonStyle}>Sign Up</button>
+      <form onSubmit={handleSignup}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={handleEmailChange}
+          style={inputStyle}
+        />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsernameChange}
+          style={inputStyle}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+          style={inputStyle}
+        />
+        <button type="submit" style={buttonStyle}>Sign Up</button>
+      </form>
       <a onClick={goToLogin} style={linkStyle}>Already have an account? Sign In</a>
     </div>
   );
