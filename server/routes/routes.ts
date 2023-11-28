@@ -4,28 +4,30 @@ import cors from 'cors';
 
 // controller imports
 import authentication from '../controllers/authentication';
+import dashboard from '../controllers/dashboardController';
 
-const router : express.Router = express.Router();
+const router: express.Router = express.Router();
 
 // *** authentication routes ***
 
-// signup 
+// signup
 router.post('/signup', authentication.signup, (req, res) => {
-    console.log('successfully created account: ', req.body.username)
-    res.status(200).json({ message: 'successfully created account' })
+  console.log('successfully created account: ', req.body.username);
+  res.status(200).json({ message: 'successfully created account' });
 });
 
 // login
 router.post('/login', authentication.login, (req, res) => {
-    console.log('successfully logged in user: ', req.body.username);
-    res.status(200).json({ message: 'successfully logged in' })
+  console.log('successfully logged in user: ', req.body.username);
+  res.status(200).json({ message: 'successfully logged in' });
 });
 
-// logout 
+// logout
 
 // *** dashboard routes ***
 
 // add address
+router.post('/addAddress', dashboard.addAddress);
 
 // get addresses
 
