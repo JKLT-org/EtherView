@@ -17,7 +17,7 @@ const Header = (props: Props) => {
         </div>
         <div className="text-center sm:text-left">
             <h1 className="text-2xl text-gray-900 sm:text-s">
-            {props.username} Dasboard
+            {props.username} Dashboard
             </h1>
         </div>
 
