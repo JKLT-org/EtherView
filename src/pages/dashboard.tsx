@@ -22,4 +22,4 @@ function Dashboard({}: Props) {
   )
 }
 
-export default Dashboard
+export default Dashboard;
