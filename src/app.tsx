@@ -7,8 +7,6 @@ import { SignUp } from './pages/SignUp';
  const App = () => {
     return (
         <div className="App" >
-            <header className="App-header">
-            </header>
             <Router>
                 <Routes>
                     <Route path='/' element={<Login/>}/>
