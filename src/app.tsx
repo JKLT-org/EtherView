@@ -6,9 +6,6 @@ import Dashboard from './pages/dashboard';
  const App = () => {
     return (
         <div className="App" >
-            Here is our app!
-            <header className="App-header">
-            </header>
             <Router>
                 <Routes>
                     <Route path='/' element={<Dashboard/>}/>
