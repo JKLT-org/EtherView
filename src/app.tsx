@@ -9,7 +9,7 @@ import { SignUp } from './pages/SignUp';
         <div className="App" >
             <Router>
                 <Routes>
-                    <Route path='/' element={<Login/>}/>
+                    <Route path='/' element={<Dashboard/>}/>
                     <Route path='/signup' element={<SignUp/>}/>
                     <Route path='/dashboard' element={<Dashboard/>}/>
                 </Routes> 
