@@ -4,7 +4,8 @@ const isDockerBuild = process.env.DOCKER_BUILD === 'true';
 
 module.exports = {
   mode: "development",
-  entry: isDockerBuild ? "./App.tsx" : "./src/app.tsx",
+  entry: isDockerBuild ? "./App.tsx" : "./src/main.tsx",
+  // entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -18,7 +19,7 @@ module.exports = {
       },
       {
         test: /\.(css)$/, // Add this rule for CSS files
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
