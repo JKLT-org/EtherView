@@ -1,10 +1,12 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+    selectedWallet:string;
+}
 
 const views = (props: Props) => {
   return (
-    <div>views</div>
+    <div>views {props.selectedWallet}</div>
   )
 }
 

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {}
 
-const addWallet = (props: Props) => {
+const AddWallet = (props: Props) => {
+    const [walletQuery, setWalletQuery] = useState('');
+
+    // const addWallet ()=>{}
+    
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center border-e bg-white">
         <div className="sm:flex sm:items-center sm:justify-between">
@@ -12,7 +16,7 @@ const addWallet = (props: Props) => {
             </h1>
         </div>
         </div>
-    <form action='/addWallet'>
+    <form method='POST'>
         <label
         htmlFor="Wallet Address"
         className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -41,4 +45,4 @@ const addWallet = (props: Props) => {
   )
 }
 
-export default addWallet
+export default AddWallet
