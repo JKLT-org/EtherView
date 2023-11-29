@@ -7,6 +7,12 @@ interface DashboardMiddleware {
     res: Response,
     next: NextFunction
   ) => Promise<void>;
+
+  deleteAddress: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
 }
 
 const dashboardController: DashboardMiddleware = {
@@ -51,6 +57,8 @@ const dashboardController: DashboardMiddleware = {
       });
     }
   },
+
+  async deleteAddress(req, res, next) {},
 };
 
 export default dashboardController;
