@@ -9,6 +9,7 @@ import axios from 'axios'
 type Props = {
     wallets: Array<string>,
     username: string,
+    setWallets: Function,
 }
 
 const Sidebar = (props: Props) => {
@@ -19,18 +20,18 @@ const Sidebar = (props: Props) => {
         setSelectedWallet(wallet)
         setIsSelected(true)
     }
-    const deleteWallet = () =>{
-        axios ({
+    const deleteWallet = async () =>{
+        const response = await axios ({
             url: '/deleteWallet',
             method: 'DELETE',
             data:{
                 wallet_address: selectedWallet
             }
         })
+        props.setWallets(response.data)
     }  
 
     useEffect(()=>{
-    console.log(selectedWallet);
     },[isSelected,selectedWallet])
 
   return (
@@ -100,7 +101,7 @@ const Sidebar = (props: Props) => {
     </form>
     </div>    
     </div>
-    {isSelected ? <Views selectedWallet={selectedWallet}/> :<AddWallet/> }
+    {isSelected ? <Views selectedWallet={selectedWallet}/> :<AddWallet wallets={props.wallets} setWallets={props.setWallets}/> }
     </div>
   )
 }

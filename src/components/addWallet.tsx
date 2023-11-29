@@ -1,11 +1,30 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
-type Props = {}
+type Props = {
+    wallets: Array<string>,
+    setWallets: Function,
+}
 
 const AddWallet = (props: Props) => {
     const [walletQuery, setWalletQuery] = useState('');
 
-    // const addWallet ()=>{}
+    const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setWalletQuery(e.target.value);
+        console.log(walletQuery);
+    }
+
+    const addWallet = async (): Promise<void> => {
+        const response = await axios({
+                    url: '/addWallet',
+                    method: "POST",
+                    data: {
+                        wallet_address: walletQuery
+                    }
+                })
+        props.setWallets(response.data)
+    }
     
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center border-e bg-white">
@@ -16,7 +35,7 @@ const AddWallet = (props: Props) => {
             </h1>
         </div>
         </div>
-    <form method='POST'>
+    <form method='POST' onSubmit={() => addWallet}>
         <label
         htmlFor="Wallet Address"
         className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -26,6 +45,7 @@ const AddWallet = (props: Props) => {
             id="WalletAddress"
             className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
             placeholder="WalletAddress"
+            onChange={(e)=>{handleInput(e)}}
         />
 
         <span
