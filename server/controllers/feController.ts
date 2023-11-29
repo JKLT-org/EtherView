@@ -29,7 +29,6 @@ const feController: FeController = {
         //this needs to return an updated array of wallet_address
         return next();
     }
-
 };
 
 
