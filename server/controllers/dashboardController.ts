@@ -103,7 +103,7 @@ const dashboardController: DashboardMiddleware = {
 
       const walletResult = await db.query(walletQuery, [userId], null);
 
-      // Extract the wallet addresses from the query result
+      // extract the wallet addresses from the query result
       const walletAddresses = walletResult.rows.map(
         (row: any) => row.wallet_address
       );
