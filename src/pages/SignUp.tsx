@@ -74,6 +74,9 @@ export const SignUp = () => {
   const handleConfirmChange = (e) => {
     setConfirm(e.target.value);
   }
+
+  axios.defaults.withCredentials = true;
+
   const handleSignup = async (event) => {
     event.preventDefault();
     if (password === confirm) {

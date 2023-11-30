@@ -115,6 +115,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
     setShowPassword(!showPassword);
   };
 
+  axios.defaults.withCredentials = true;
+
   const handleLogin = (e) => {
     e.preventDefault();
     console.log('login attempted');
@@ -124,7 +126,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
     };
 
     axios
-        .post('http://localhost:3000/api/login', user)
+        .post('http://localhost:3000/api/login', user, {
+        })
         .then(response=> {
             console.log('Login successful!');
             navigate('/dashboard');
