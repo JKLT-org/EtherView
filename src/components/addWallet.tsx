@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 type Props = {
@@ -9,7 +8,6 @@ type Props = {
 
 const AddWallet = (props: Props) => {
 
-    const navigate = useNavigate();
     const [walletQuery, setWalletQuery] = useState('');
 
     const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +26,12 @@ const AddWallet = (props: Props) => {
                         wallet_address: walletQuery
                     }
                 })
-        props.setWallets(response.data)
-        navigate('/');
+            console.log(response.data)
+            props.setWallets(response.data)
     }
+
+    useEffect(()=>{
+    },[props.wallets])
     
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center border-e bg-white">
@@ -41,7 +42,7 @@ const AddWallet = (props: Props) => {
             </h1>
         </div>
         </div>
-    <form method='POST' onSubmit={(e) => {e.preventDefault(); addWallet();}}>
+    <form onSubmit={(e) => {e.preventDefault(); addWallet();}}>
         <label
         htmlFor="Wallet Address"
         className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
