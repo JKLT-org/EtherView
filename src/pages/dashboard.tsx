@@ -7,22 +7,23 @@ type Props = {};
 
 
 function Dashboard({}: Props) {
-    const [wallets, setWallets] = useState(["test1", "aaa2", "testing3", "oooo4"])
+    const [wallets, setWallets] = useState([])
     const [username, setUsername] = useState('test')
 
-    // const getWallets = async (): Promise<void> => {
-    //     const response = await axios({
-    //         url: '/fe/getWallets',
-    //         method: "GET"
-    //     })
-    //     setWallets(response.data);
-    //     //if using localStorage to store user
-    //    // setUsername(localStorage.getItem('username') || 'PleaseLogin')
-    // }
+    const getWallets = async (): Promise<void> => {
+        const response = await axios({
+            url: '/fe/getWallets',
+            method: "GET"
+        })
+        console.log(response.data);
+        setWallets(response.data);
+        //if using localStorage to store user
+       // setUsername(localStorage.getItem('username') || 'PleaseLogin')
+    }
 
-    // useEffect(() => {
-    //     getWallets();
-    // }, [wallets, username])
+    useEffect(() => {
+        getWallets();
+    }, [])
 
 
   return (
