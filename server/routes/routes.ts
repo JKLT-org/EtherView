@@ -11,13 +11,13 @@ const router : express.Router = express.Router();
 // *** authentication routes ***
 
 // signup 
-router.post('/signup', authentication.signup, (req, res) => {
+router.post('/signup', authentication.signup, authentication.setCookie, (req, res) => {
     console.log('successfully created account: ', req.body.username)
     res.status(200).json({ message: 'successfully created account' })
 });
 
 // login
-router.post('/login', authentication.login, (req, res) => {
+router.post('/login', authentication.login, authentication.setCookie, (req, res) => {
     console.log('successfully logged in user: ', req.body.username);
     res.status(200).json({ message: 'successfully logged in' })
 });

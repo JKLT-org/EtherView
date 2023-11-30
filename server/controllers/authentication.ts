@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import db from '../schemas/connection';
 import bcrypt from 'bcryptjs';
-import cookieparser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
+
+const secretKey = 'JKLT';
 
 interface AuthenticationMiddleware {
     signup: (
@@ -33,7 +35,6 @@ const authentication : AuthenticationMiddleware = {
             const result = await db.query(query, values, null);
             const user_id = result.rows[0].user_id;
             res.locals.user_id = user_id;
-            req.session.cookie = user_id;
             res.locals.username = username;
             return next();
         }
@@ -70,9 +71,7 @@ const authentication : AuthenticationMiddleware = {
                 const user_id = resultId.rows[0].user_id; 
                 res.locals.user_id = user_id;
                 res.locals.username = username;
-                const val = JSON.stringify(res.locals.user_id);
-                res.cookie('test', val);
-                console.log('session set as cookie');
+                res.cookie('token', user_id, {httpOnly: true, sameSite: 'lax', path: '/',});
                 return next();
             }
         }
@@ -86,19 +85,11 @@ const authentication : AuthenticationMiddleware = {
     },
 
     async setCookie (req: Request, res: Response, next: NextFunction) {
-        const val = JSON.stringify(res.locals.user_id);
-        res.cookie('test', val);
-        // res.cookie('myCookie', 'cookieValue', {
-        //     maxAge: 24 * 60 * 60 * 1000, // Expires after 1 day (in milliseconds)
-        //     httpOnly: false, // Makes the cookie accessible only via HTTP(S), not JavaScript
-        //     secure: true, // Sends the cookie only over HTTPS
-        //     sameSite: 'strict', // Restricts the cookie to the same site
-        //     path: '/', // Makes the cookie accessible from all paths
-           
-        //   });
-        console.log('session set as cookie');
+        res.cookie('token', res.locals.user_id, {httpOnly: true, sameSite: 'lax', path: '/',});
+        console.log('cookie set successfully');
         return next();
     }
+
 };
 
 export default authentication;

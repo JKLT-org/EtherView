@@ -11,47 +11,21 @@ import router from './routes/routes';
 
 const PORT = 3000;
 
-require('dotenv').config();
+// require('dotenv').config();
 
 const app = express();
 
-const allowedOrigins = 'http://localhost:8080';
+const corsOptions = {
+    origin: 'http://localhost:8080', // Change this to your frontend's URL
+    credentials: true, // Allow credentials
+  };
+  
+app.use(cors(corsOptions));
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type'], 
-}));
-
-const secret = 'mysecret'; // Replace 'mysecret' with your actual secret
-
-// Use cookie-parser middleware with the provided secret
 app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// interface MySession extends SessionData {
-//     user: { id: number, username: string }; // Define the structure of your 'user' property
-// }
-
-// const pgSession = connectPgSimple(session);
-
-// const sessionConfig: session.SessionOptions = {
-//     store: new pgSession({
-//         conObject: {
-//             connectionString: 'postgres://xfaoxtit:NGVrQ0YptifNP1izte1y4-qJVfUbU65z@berry.db.elephantsql.com/xfaoxtit',
-//             pg: pg,
-//         },
-//     }),
-//     secret: 'secret',
-//     saveUninitialized: false,
-//     resave: false,
-//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
-// };
-
-// app.use(session(sessionConfig));
 
 
 // use all routes in routes folder
