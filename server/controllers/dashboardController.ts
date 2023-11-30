@@ -110,7 +110,6 @@ const dashboardController: DashboardMiddleware = {
 
       res.status(200).json({ wallet_addresses: walletAddresses });
     } catch (error) {
-      // Pass any errors to the error handling middleware
       next({
         log: `Error in dashboardController.getWallet: ${error}`,
         message: {
