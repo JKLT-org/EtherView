@@ -7,7 +7,7 @@ type Props = {
 
 const Views = (props: Props) => {
 
-    const [walletData, setWalletData] = useState({timestamp: '01-21-23', eth_balance: '3.84', usd_balance: '6492.43'});
+    const [walletData, setWalletData] = useState([]);
 
     const getWalletData = useCallback (async (): Promise<void> => {
         const response = await axios({
@@ -17,6 +17,7 @@ const Views = (props: Props) => {
                 wallet_address: props.selectedWallet
             }
         })
+        console.log(response.data);
         setWalletData(response.data);
     }, [props.selectedWallet]);
 
