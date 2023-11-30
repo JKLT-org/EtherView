@@ -12,7 +12,7 @@ function Dashboard({}: Props) {
 
     // const getWallets = async (): Promise<void> => {
     //     const response = await axios({
-    //         url: '/getWallets',
+    //         url: '/fe/getWallets',
     //         method: "GET"
     //     })
     //     setWallets(response.data);

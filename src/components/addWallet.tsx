@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 type Props = {
@@ -7,6 +8,8 @@ type Props = {
 }
 
 const AddWallet = (props: Props) => {
+
+    const navigate = useNavigate();
     const [walletQuery, setWalletQuery] = useState('');
 
     const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -17,13 +20,14 @@ const AddWallet = (props: Props) => {
 
     const addWallet = async (): Promise<void> => {
         const response = await axios({
-                    url: '/addWallet',
+                    url: '/fe/addWallet',
                     method: "POST",
                     data: {
                         wallet_address: walletQuery
                     }
                 })
         props.setWallets(response.data)
+        navigate('/');
     }
     
   return (
@@ -35,7 +39,7 @@ const AddWallet = (props: Props) => {
             </h1>
         </div>
         </div>
-    <form method='POST' onSubmit={() => addWallet}>
+    <form method='POST' onSubmit={(e) => {e.preventDefault(); addWallet();}}>
         <label
         htmlFor="Wallet Address"
         className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"

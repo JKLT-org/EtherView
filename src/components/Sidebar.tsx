@@ -22,8 +22,8 @@ const Sidebar = (props: Props) => {
     }
     const deleteWallet = async () =>{
         const response = await axios ({
-            url: '/deleteWallet',
-            method: 'DELETE',
+            url: '/fe/deleteWallet',
+            method: 'POST',
             data:{
                 wallet_address: selectedWallet
             }
