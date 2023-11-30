@@ -16,9 +16,11 @@ const AddWallet = (props: Props) => {
         console.log(walletQuery);
     }
 
+    axios.defaults.withCredentials = true;
+
     const addWallet = async (): Promise<void> => {
         const response = await axios({
-                    url: '/fe/addWallet',
+                    url: 'http://localhost:3000/api/postwallets',
                     method: "POST",
                     data: {
                         wallet_address: walletQuery

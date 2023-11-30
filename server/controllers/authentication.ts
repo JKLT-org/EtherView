@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import db from '../schemas/connection';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+const secretKey = 'JKLT';
 
 interface AuthenticationMiddleware {
     signup: (
@@ -13,6 +16,11 @@ interface AuthenticationMiddleware {
       res: Response,
       next: NextFunction
     ) => Promise<void>;
+    setCookie: (
+        req: Request,
+        res: Response,
+        next: NextFunction
+      ) => Promise<void>;
 }
 
 const authentication : AuthenticationMiddleware = {
@@ -63,6 +71,7 @@ const authentication : AuthenticationMiddleware = {
                 const user_id = resultId.rows[0].user_id; 
                 res.locals.user_id = user_id;
                 res.locals.username = username;
+                res.cookie('token', user_id, {httpOnly: true, sameSite: 'lax', path: '/',});
                 return next();
             }
         }
@@ -74,6 +83,13 @@ const authentication : AuthenticationMiddleware = {
             })
         }
     },
+
+    async setCookie (req: Request, res: Response, next: NextFunction) {
+        res.cookie('token', res.locals.user_id, {httpOnly: true, sameSite: 'lax', path: '/',});
+        console.log('cookie set successfully');
+        return next();
+    }
+
 };
 
 export default authentication;
