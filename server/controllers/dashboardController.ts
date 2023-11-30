@@ -58,7 +58,10 @@ const dashboardController: DashboardMiddleware = {
     }
   },
 
-  async deleteAddress(req, res, next) {},
+  async deleteAddress(req, res, next) {
+    const userId = res.locals.user_id;
+    const addressId = req.params.addressId;
+  },
 };
 
 export default dashboardController;
