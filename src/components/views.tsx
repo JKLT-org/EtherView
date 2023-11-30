@@ -23,7 +23,6 @@ const Views = (props: Props) => {
 
     ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-    // Uncomment this to fetch wallet data from backend
     // const getWalletData = useCallback(async (): Promise<void> => {
     //     const response = await axios({
     //         url: '/fe/getWalletData',
@@ -40,9 +39,9 @@ const Views = (props: Props) => {
     // }, [getWalletData]);
 
     const titleStyle: CSSProperties = {
-        textAlign: 'center', // Center-align the text
-        marginBottom: '20px', // Adds some space below the title
-        color: 'blue', // Any styling you want for the title
+        textAlign: 'center', 
+        marginBottom: '20px', 
+        color: 'blue', 
     };
 
     const graphContainerStyle: CSSProperties = {
