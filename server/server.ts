@@ -2,46 +2,38 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
+import pg from 'pg';
 import cookieParser from 'cookie-parser';
+import * as Cookies from 'js-cookie';
 
 import router from './routes/routes';
 import feRoutes from './routes/feRoutes';
 
 const PORT = 3000;
-require('dotenv').config();
+
+// require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
-// app.use(cookieParser());
+const corsOptions = {
+    origin: 'http://localhost:8080', // Change this to your frontend's URL
+    credentials: true, // Allow credentials
+  };
+  
+app.use(cors(corsOptions));
+
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// const sessionConfig = {
-//   store: new (require('connect-pg-simple')(session))({
-//     conString: 'postgres://bwkdjkqj:Mc0GUvXKF9M5wNiMDUYKyHvQoDojVdYZ@lallah.db.elephantsql.com/bwkdjkqj'
-//   }),
-//   secret: 'secret',
-//   saveUnitialized: false,
-//   resave: false,  
-//   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
-//   user_id: "",
-//   authentication: false
-// }
-
-// app.use(session(sessionConfig))
 
 // use all routes in routes folder
 app.use('/api', router);
 app.use('/fe', feRoutes);
 
-
 app.use(express.static(path.join(__dirname, 'dist')));
-
-// app.get("/", (req, res) => {
-//   return res.status(200).sendFile(path.resolve(__dirname, "./src/index.html"));
-// });
 
 app.get("/", (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, "dist", "index.html"));
