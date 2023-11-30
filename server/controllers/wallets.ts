@@ -19,15 +19,13 @@ const wallets : WalletsMiddleware = {
     async addWallet (req: Request, res: Response, next: NextFunction){
 
         try {
-            const { address } = req.body;
+            const { wallet_address } = req.body;
             const user = req.cookies.token;
-            console.log(user);
-            console.log(req.cookies);
             const query = 'INSERT INTO addresses (user_id, wallet_address) VALUES ($1, $2) RETURNING wallet_address';
-            const values = [user, address];
+            const values = [user, wallet_address];
             const result = await db.query(query, values, null);
-            const wallet_address = result.rows[0].wallet_address;
-            res.locals.wallet_address = wallet_address;
+            const address = result.rows[0].wallet_address;
+            res.locals.address = address;
             return next();
         }
         catch (error) {

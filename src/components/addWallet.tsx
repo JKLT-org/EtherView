@@ -1,8 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-type Props = {}
+type Props = {
+    wallets: Array<string>,
+    setWallets: Function,
+}
 
-const addWallet = (props: Props) => {
+const AddWallet = (props: Props) => {
+
+    const navigate = useNavigate();
+    const [walletQuery, setWalletQuery] = useState('');
+
+    const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setWalletQuery(e.target.value);
+        console.log(walletQuery);
+    }
+
+    axios.defaults.withCredentials = true;
+
+    const addWallet = async (): Promise<void> => {
+        const response = await axios({
+                    url: 'http://localhost:3000/api/postwallets',
+                    method: "POST",
+                    data: {
+                        wallet_address: walletQuery
+                    }
+                })
+        props.setWallets(response.data)
+        navigate('/');
+    }
+    
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center border-e bg-white">
         <div className="sm:flex sm:items-center sm:justify-between">
@@ -12,7 +41,7 @@ const addWallet = (props: Props) => {
             </h1>
         </div>
         </div>
-    <form action='/addWallet'>
+    <form method='POST' onSubmit={(e) => {e.preventDefault(); addWallet();}}>
         <label
         htmlFor="Wallet Address"
         className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -22,6 +51,7 @@ const addWallet = (props: Props) => {
             id="WalletAddress"
             className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
             placeholder="WalletAddress"
+            onChange={(e)=>{handleInput(e)}}
         />
 
         <span
@@ -41,4 +71,4 @@ const addWallet = (props: Props) => {
   )
 }
 
-export default addWallet
+export default AddWallet

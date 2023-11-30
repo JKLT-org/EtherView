@@ -1,18 +1,41 @@
-import React, {Dispatch, SetStateAction} from 'react'
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import walletIcon from '../img/wallet.png'
 import trash from '../img/delete.png'
 import add from '../img/add.png'
-import addWallet from './addWallet'
+import AddWallet from '../components/addWallet'
+import Views from '../components/views'
+import axios from 'axios'
 
 type Props = {
     wallets: Array<string>,
     username: string,
-    isSelected: boolean,
-    setIsSelected: Dispatch<SetStateAction<boolean>>;
+    setWallets: Function,
 }
 
 const Sidebar = (props: Props) => {
+    const [isSelected, setIsSelected] = useState(false)
+    const [selectedWallet, setSelectedWallet] = useState('')
+
+    const walletSelected = (wallet:string) => {
+        setSelectedWallet(wallet)
+        setIsSelected(true)
+    }
+    const deleteWallet = async () =>{
+        const response = await axios ({
+            url: '/fe/deleteWallet',
+            method: 'POST',
+            data:{
+                wallet_address: selectedWallet
+            }
+        })
+        props.setWallets(response.data)
+    }  
+
+    useEffect(()=>{
+    },[isSelected,selectedWallet])
+
   return (
+    <div className='flex'>
     <div className="flex h-screen w-16 flex-col justify-between border-e bg-white">
   <div>
     <div className="inline-flex h-16 w-16 items-center justify-center">
@@ -28,7 +51,7 @@ const Sidebar = (props: Props) => {
         <div className="py-4">
           <button
             className="t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700"
-            onClick={()=> props.setIsSelected(true)}
+            onClick={()=> setIsSelected(false)}
           >
             <img src={add} alt='addWallet'/>
 
@@ -42,9 +65,10 @@ const Sidebar = (props: Props) => {
 
         <ul className="space-y-1 border-t border-gray-100 pt-4">
             {props.wallets.map((wallet, index) => (
-                <li key={index}>
+                <li key={index} >
                     <button
               className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              onClick={()=>walletSelected(wallet)}  
             >
                 <img src={walletIcon} alt='wallet'/>
               <span
@@ -65,7 +89,8 @@ const Sidebar = (props: Props) => {
       <button
         type="submit"
         className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-      >
+        onClick={()=> deleteWallet()}
+        >
         <img src={trash} alt='delete'/>
         <span
           className="absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100"
@@ -74,8 +99,10 @@ const Sidebar = (props: Props) => {
         </span>
       </button>
     </form>
-  </div>
-</div>
+    </div>    
+    </div>
+    {isSelected ? <Views selectedWallet={selectedWallet}/> :<AddWallet wallets={props.wallets} setWallets={props.setWallets}/> }
+    </div>
   )
 }
 

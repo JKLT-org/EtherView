@@ -13,7 +13,7 @@ fetch('https://rest.coinapi.io/v1/exchangerate/BTC/USD', {
   },
 })
   .then((response) => response.json())
-  .then((data) => console.log(data))
+  .then((data: any) => console.log(data))
   .catch((error) => console.error('Error:', error));
 
 // ----- Etherscan API -----
@@ -24,7 +24,7 @@ const url = `https://api.etherscan.io/api?module=account&action=balance&address=
 
 fetch(url)
   .then((response) => response.json())
-  .then((data : any) => {
+  .then((data: any) => {
     if (data.status === '1') {
       const balanceInWei = data.result;
       const balanceInEth = balanceInWei / 1e18; // Convert Wei to ETH

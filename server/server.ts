@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import * as Cookies from 'js-cookie';
 
 import router from './routes/routes';
+import feRoutes from './routes/feRoutes';
 
 const PORT = 3000;
 
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // use all routes in routes folder
 app.use('/api', router);
+app.use('/fe', feRoutes);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

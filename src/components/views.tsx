@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import axios from 'axios'
 
-type Props = {}
+type Props = {
+    selectedWallet:string;
+}
 
-const views = (props: Props) => {
+const Views = (props: Props) => {
+
+    const [walletData, setWalletData] = useState({timestamp: '01-21-23', eth_balance: '3.84', usd_balance: '6492.43'});
+
+    const getWalletData = useCallback (async (): Promise<void> => {
+        const response = await axios({
+            url: '/fe/getWalletData',
+            method: "POST",
+            data: {
+                wallet_address: props.selectedWallet
+            }
+        })
+        setWalletData(response.data);
+    }, [props.selectedWallet]);
+
+    useEffect(() => {
+        getWalletData();
+    }, [getWalletData])
+
+
   return (
-    <div>views</div>
+    <div>views {props.selectedWallet}</div>
   )
 }
 
-export default views
+export default Views

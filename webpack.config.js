@@ -44,6 +44,7 @@ module.exports = {
     webSocketServer: "sockjs",
     proxy: {
       '/api': 'http://localhost:3000',
+      '/fe': 'http://localhost:3000',
       secure: false,
     },
   },
