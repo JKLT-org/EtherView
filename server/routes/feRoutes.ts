@@ -5,23 +5,37 @@ const router = express.Router();
 
 
 //getWallets (GET)
+//RETURNS AN ARRAY OF STRINGS
 router.get('/getWallets',feController.getWallets, (req, res) =>{
-    console.log('im in get wallets');
+
+        //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
+    // res.status(200).send(res.locals.wallets);
 });
 
 //getWalletData (this is a POST because we need wallet_address in body)
+//RETURNS ARRAY OF OBJECTS
 router.post('/getWalletData',feController.getWalletData, (req, res) => {
-    console.log('im in getWalletData and this is the selected wallet', req.body)
+
+        //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
+    // res.status(200).send(res.locals.walletData);
 });
 
 //addWallet (POST)
+//RETURNS ARRAY OF STRINGS
 router.post('/addWallet',feController.addWallet, (req, res)=>{
-    console.log('im in addWallet and this is the address', req.body)
+
+        //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
+    // console.log('this will be sent to frontend', res.locals.newAddress)
+    // res.status(200).send(res.locals.newAddress)
 })
 
 //deleteWallet (DELETE)
+//RETURNS ARRAY OF STRINGS
 router.post('/deleteWallet', feController.deleteWallet, (req, res)=>{
-    console.log('im in deleteWallet and will delete this', req.body)
+
+        //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
+    // console.log('this will be sent to frontend', res.locals.newAddress)
+    // res.status(200).send(res.locals.newAddress)
 })
 
 export default router
