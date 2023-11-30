@@ -26,9 +26,13 @@ router.post('/login', authentication.login, (req, res) => {
 
 // *** dashboard routes ***
 
-// add address
-router.post('/addAddress', dashboard.addAddress);
+// add wallet
+router.post('/addAddress', dashboard.addWallet);
+
+// delete wallet
+router.post('/deleteAddress', dashboard.deleteWallet);
 
 // get addresses
+router.post('/getAddress', dashboard.getWallet);
 
 export default router;
