@@ -15,8 +15,8 @@ function Dashboard({}: Props) {
             url: '/fe/getWallets',
             method: "GET"
         })
-        console.log(response.data);
-        setWallets(response.data);
+        console.log(response.data.walletAddresses);
+        setWallets(response.data.walletAddresses);
         //if using localStorage to store user
        // setUsername(localStorage.getItem('username') || 'PleaseLogin')
     }

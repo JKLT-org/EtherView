@@ -1,12 +1,13 @@
 import express from 'express';
 import feController from '../controllers/feController';
+import dashboardController from '../controllers/dashboardController';
 
 const router = express.Router();
 
 
 //getWallets (GET)
 //RETURNS AN ARRAY OF STRINGS
-router.get('/getWallets',feController.getWallets, (req, res) =>{
+router.get('/getWallets',dashboardController.getWallet, (req, res) =>{
 
         //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
     res.status(200).send(res.locals.wallets);
@@ -22,16 +23,16 @@ router.post('/getWalletData',feController.getWalletData, (req, res) => {
 
 //addWallet (POST)
 //RETURNS ARRAY OF STRINGS
-router.post('/addWallet',feController.addWallet, (req, res)=>{
+router.post('/addWallet',dashboardController.addWallet, dashboardController.getWallet, (req, res)=>{
 
         //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
     // console.log('this will be sent to frontend', res.locals.newAddress)
-    // res.status(200).send(res.locals.newAddress)
+    res.status(200).json()
 })
 
 //deleteWallet (DELETE)
 //RETURNS ARRAY OF STRINGS
-router.post('/deleteWallet', feController.deleteWallet, (req, res)=>{
+router.post('/deleteWallet', dashboardController.deleteWallet, dashboardController.getWallet, (req, res)=>{
 
         //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
     // console.log('this will be sent to frontend', res.locals.newAddress)

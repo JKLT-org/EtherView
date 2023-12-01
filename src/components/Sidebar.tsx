@@ -29,7 +29,7 @@ const Sidebar = (props: Props) => {
             }
         })
         console.log(response.data);
-        props.setWallets(response.data)
+        props.setWallets(response.data.walletAddresses)
     }  
 
     useEffect(()=>{
