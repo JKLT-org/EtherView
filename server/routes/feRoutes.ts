@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/getWallets',feController.getWallets, (req, res) =>{
 
         //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
-    // res.status(200).send(res.locals.wallets);
+    res.status(200).send(res.locals.wallets);
 });
 
 //getWalletData (this is a POST because we need wallet_address in body)

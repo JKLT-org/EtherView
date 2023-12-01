@@ -31,6 +31,7 @@ router.post('/postwallets', wallets.addWallet, (req, res) => {
     res.status(200).json({ message: 'wallet added' })
 })
 
+
 // get addresses
 
 export default router;
