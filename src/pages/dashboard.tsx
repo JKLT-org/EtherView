@@ -3,12 +3,14 @@ import {useState} from 'react'
 import axios from 'axios'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
-type Props = {};
+type Props = {
+  usernameApp:string,
+
+};
 
 
-function Dashboard({}: Props) {
+function Dashboard(props: Props) {
     const [wallets, setWallets] = useState([])
-    const [username, setUsername] = useState('test')
 
     const getWallets = async (): Promise<void> => {
         const response = await axios({
@@ -17,8 +19,6 @@ function Dashboard({}: Props) {
         })
         console.log(response.data);
         setWallets(response.data);
-        //if using localStorage to store user
-       // setUsername(localStorage.getItem('username') || 'PleaseLogin')
     }
 
     useEffect(() => {
@@ -28,9 +28,9 @@ function Dashboard({}: Props) {
 
   return (
     <div>
-    <Header username="test"/>
+    <Header usernameApp={props.usernameApp}/>
     <div className='flex'>
-    <Sidebar wallets={wallets} setWallets={setWallets} username={username}/>
+    <Sidebar wallets={wallets} setWallets={setWallets} usernameApp={props.usernameApp}/>
     </div>
     </div>
   )
