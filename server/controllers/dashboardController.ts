@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import db from '../schemas/connection';
 
 interface DashboardMiddleware {
