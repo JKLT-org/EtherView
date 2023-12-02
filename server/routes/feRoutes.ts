@@ -15,10 +15,10 @@ router.get('/getWallets',dashboardController.getWallet, (req, res) =>{
 
 //getWalletData (this is a POST because we need wallet_address in body)
 //RETURNS ARRAY OF OBJECTS
-router.post('/getWalletData',feController.getWalletData, (req, res) => {
+router.post('/getWalletData',dashboardController.getWalletData, (req, res) => {
 
         //DUMMY DATA TO TEST FRONTEND - PLEASE DELETE
-    // res.status(200).send(res.locals.walletData);
+    res.status(200).send(res.locals.walletData);
 });
 
 //addWallet (POST)
