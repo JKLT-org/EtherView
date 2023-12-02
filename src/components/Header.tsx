@@ -1,11 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'; 
 import pfp from '../img/pfp.png'
 
 type Props = {
-    username: string;
+    usernameApp: string;
 }
 
 const Header = (props: Props) => {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        navigate('/');
+    }
+
   return (
     <header>
     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -17,7 +24,7 @@ const Header = (props: Props) => {
         </div>
         <div className="text-center sm:text-left">
             <h1 className="text-2xl text-gray-900 sm:text-s">
-            {props.username} Dashboard
+            {props.usernameApp}'s dashboard
             </h1>
         </div>
 
@@ -26,6 +33,7 @@ const Header = (props: Props) => {
             <button
             className="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
             type="button"
+            onClick={()=>logout()}
             >
             Logout
             </button>
