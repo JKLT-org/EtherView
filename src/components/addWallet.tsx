@@ -20,14 +20,14 @@ const AddWallet = (props: Props) => {
 
     const addWallet = async (): Promise<void> => {
         const response = await axios({
-                    url: 'http://localhost:3000/api/postwallets',
+                    url: 'http://localhost:3000/fe/addWallet',
                     method: "POST",
                     data: {
                         wallet_address: walletQuery
                     }
                 })
             console.log(response.data)
-            props.setWallets(response.data)
+            props.setWallets(response.data.walletAddresses)
     }
 
     useEffect(()=>{
