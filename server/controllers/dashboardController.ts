@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import db from '../schemas/connection';
 
 interface DashboardMiddleware {
@@ -73,7 +73,7 @@ const dashboardController: DashboardMiddleware = {
 
       // if the address does not exist for this user, return a msg
       if (checkResult.rows.length === 0) {
-        return res
+        res
           .status(404)
           .json({ message: 'Address not found for this user.' });
       }
