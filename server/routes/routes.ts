@@ -5,7 +5,7 @@ import cors from 'cors';
 // controller imports
 import authentication from '../controllers/authentication';
 import dashboard from '../controllers/dashboardController';
-import wallets from '../controllers/wallets';
+// import wallets from '../controllers/wallets';
 
 const router: express.Router = express.Router();
 
@@ -38,9 +38,10 @@ router.post(
 // *** dashboard routes ***
 
 // add wallet
-router.post('/postwallets', wallets.addWallet, (req, res) => {
-  res.status(200).json({ message: 'wallet added' });
-});
+// router.post('/postwallets', wallets.addWallet, (req, res) => {
+//   res.status(200).json({ message: 'wallet added' });
+// });
+
 
 // get addresses
 router.post('/getAddress', dashboard.getWallet);
