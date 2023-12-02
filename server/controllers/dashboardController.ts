@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import db from '../schemas/connection';
 
 interface DashboardMiddleware {
@@ -11,6 +11,7 @@ interface DashboardMiddleware {
   ) => Promise<void>;
 
   getWallet: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+  getWalletData: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 }
 
 const dashboardController: DashboardMiddleware = {
@@ -124,6 +125,32 @@ const dashboardController: DashboardMiddleware = {
       });
     }
   },
+
+  async getWalletData (req, res, next) {
+
+    try {
+      const user_id = req.cookies.token;
+      const { wallet_address } = req.body;
+  
+      const walletQuery = 'SELECT address_id FROM addresses WHERE user_id = $1 AND wallet_address = $2';
+      const walletResult = await db.query(walletQuery, [user_id, wallet_address], null);
+      const address_id = walletResult.rows[0].address_id;
+
+      const dataQuery = 'SELECT * FROM balances WHERE address_id = $1';
+      const dataResult = await db.query(dataQuery, [address_id], null);
+      // console.log(dataResult.rows);
+      res.locals.walletData = dataResult.rows;
+      return next();
+    }
+    catch (error) {
+      next({
+        log: `Error in dashboardController.getWalletData: ${error}`,
+        message: {
+          err: 'An error occurred while attempting to retrieve wallet balances.',
+        },
+      });
+    }
+  }
 };
 
 export default dashboardController;

@@ -8,35 +8,31 @@ type Props = {
     selectedWallet: string;
 };
 
+type WalletDataItem = {
+    timestamp: string; // Adjust the type according to your data
+    eth_balance: string; // Or use number if appropriate
+    usd_balance: string; // Or use number if appropriate
+};
+
 const Views = (props: Props) => {
-    const [walletData, setWalletData] = useState([
-        { timestamp: 'January 1, 2023, 00:00:00 UTC', eth_balance: '2.5', usd_balance: '5000' },
-        { timestamp: 'January 2, 2023, 00:00:00 UTC', eth_balance: '2.6', usd_balance: '5200' },
-        { timestamp: 'January 3, 2023, 00:00:00 UTC', eth_balance: '2.7', usd_balance: '5400' },
-        { timestamp: 'January 4, 2023, 00:00:00 UTC', eth_balance: '2.8', usd_balance: '5300' },
-        { timestamp: 'January 5, 2023, 00:00:00 UTC', eth_balance: '2.5', usd_balance: '5800' },
-        { timestamp: 'January 6, 2023, 00:00:00 UTC', eth_balance: '3.9', usd_balance: '6000' },
-        { timestamp: 'January 7, 2023, 00:00:00 UTC', eth_balance: '3.1', usd_balance: '5000' },
-        { timestamp: 'January 8, 2023, 00:00:00 UTC', eth_balance: '3.2', usd_balance: '5500' },
-        { timestamp: 'January 9, 2023, 00:00:00 UTC', eth_balance: '3.3', usd_balance: '6500' },
-        { timestamp: 'January 10, 2023, 00:00:00 UTC', eth_balance: '2.5', usd_balance: '6800' }]);
+    const [walletData, setWalletData] = useState<WalletDataItem[]>([]);
 
     ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-    // const getWalletData = useCallback(async (): Promise<void> => {
-    //     const response = await axios({
-    //         url: '/fe/getWalletData',
-    //         method: "POST",
-    //         data: {
-    //             wallet_address: props.selectedWallet
-    //         }
-    //     });
-    //     setWalletData(response.data);
-    // }, [props.selectedWallet]);
+    const getWalletData = useCallback(async (): Promise<void> => {
+        const response = await axios({
+            url: '/fe/getWalletData',
+            method: "POST",
+            data: {
+                wallet_address: props.selectedWallet
+            }
+        });
+        setWalletData(response.data);
+    }, [props.selectedWallet]);
 
-    // useEffect(() => {
-    //     getWalletData();
-    // }, [getWalletData]);
+    useEffect(() => {
+        getWalletData();
+    }, [getWalletData]);
 
     const titleStyle: CSSProperties = {
         textAlign: 'center', 
@@ -104,12 +100,12 @@ const Views = (props: Props) => {
     
 
     return (
-        <>
+        <div className='h-screen w-screen'>
             <h1 style={titleStyle}>Ethereum and USD Balance Over Time</h1>
             <div style={graphContainerStyle}>
                 <Line data={chartData} options={options} />
             </div>
-        </>
+        </div>
     );
 };
 

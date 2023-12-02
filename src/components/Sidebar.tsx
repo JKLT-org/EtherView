@@ -8,7 +8,7 @@ import axios from 'axios'
 
 type Props = {
     wallets: Array<string>,
-    username: string,
+    usernameApp: string,
     setWallets: Function,
 }
 
@@ -36,14 +36,14 @@ const Sidebar = (props: Props) => {
     },[isSelected,selectedWallet, props.wallets])
 
   return (
-    <div className='flex'>
+    <div className='flex h-screen w-screen'>
     <div className="flex h-screen w-16 flex-col justify-between border-e bg-white">
   <div>
     <div className="inline-flex h-16 w-16 items-center justify-center">
       <span
         className="grid h-10 w-10 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600"
       >
-        {props.username[0]}
+        {props.usernameApp[0]}
       </span>
     </div>
 

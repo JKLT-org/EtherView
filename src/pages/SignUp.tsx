@@ -1,8 +1,11 @@
 import React, { useState, CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+type Props = {
+  setUsernameApp: Function
+};
 
-export const SignUp = () => {
+export const SignUp = (props: Props) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -87,6 +90,7 @@ export const SignUp = () => {
         password,
       });
       console.log(response.data);
+      props.setUsernameApp(username);
       navigate('/dashboard');
     } catch (error) {
       //Handle error, can we send back what caused the error? like if email address already in use etc, so we can show message? 

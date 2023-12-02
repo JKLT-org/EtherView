@@ -4,8 +4,12 @@ import axios from 'axios';
 import { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+type Props = {
+  setUsernameApp: Function
+};
 
- const Login = () => {
+
+ const Login = (props:Props) => {
     const navigate = useNavigate();
     const [loginError, setLoginError] = useState(false); 
     const [username, setUsername] = useState('');
@@ -130,6 +134,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
         })
         .then(response=> {
             console.log('Login successful!');
+            props.setUsernameApp(username);
             navigate('/dashboard');
         })
         .catch(error => {

@@ -21,7 +21,7 @@ interface AuthenticationMiddleware {
         res: Response,
         next: NextFunction
       ) => Promise<void>;
-}
+} 
 
 const authentication : AuthenticationMiddleware = {
 
