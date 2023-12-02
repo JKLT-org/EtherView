@@ -6,7 +6,6 @@ import connectPgSimple from 'connect-pg-simple';
 import pg from 'pg';
 import cookieParser from 'cookie-parser';
 import * as Cookies from 'js-cookie';
-
 import router from './routes/routes';
 import feRoutes from './routes/feRoutes';
 
@@ -26,8 +25,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(express.urlencoded({ extended: true }))
 
 // use all routes in routes folder
 app.use('/api', router);
@@ -38,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get("/", (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
+
 
 
 // catch-all route handler for any requests to an unknown route

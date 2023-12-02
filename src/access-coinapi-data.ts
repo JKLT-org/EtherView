@@ -7,7 +7,7 @@
 import fetch from 'node-fetch';
 
 // fetches the current price of BTC converted to USD, can be used as a template for other currencies
-fetch('https://rest.coinapi.io/v1/exchangerate/BTC/USD', {
+fetch('https://rest.coinapi.io/v1/exchangerate/ETH/USD', {
   headers: {
     'X-CoinAPI-Key': 'F5BDDC6B-2406-4D02-BE8C-ED4485049ADF', // Replace with your API key
   },

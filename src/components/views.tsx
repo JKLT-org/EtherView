@@ -30,9 +30,36 @@ const Views = (props: Props) => {
         setWalletData(response.data);
     }, [props.selectedWallet]);
 
+    const getAPIData = useCallback( async (): Promise<void> =>{
+        const response = await axios.post('http://localhost:3000/api/proxy', {
+            url: `/api?module=account&action=balance&address=${props.selectedWallet}&tag=latest&apikey=49CW694CARZC8PKEVDBWGCBR19WPWUJ5GP`
+        });
+        let ethAmount: number = +response.data.result 
+        ethAmount = ethAmount/1000000000000000000;
+        console.log(ethAmount)
+        const USD = await axios.get('https://rest.coinapi.io/v1/exchangerate/ETH/USD', {
+            headers: {
+                'X-CoinAPI-Key': 'F5BDDC6B-2406-4D02-BE8C-ED4485049ADF', // Replace with your API key
+            },
+            })
+        console.log(USD.data.rate);
+        console.log(USD.data.time);
+        setWalletData(prevData=>[...prevData, {
+            timestamp: USD.data.time, 
+            eth_balance: String(ethAmount),
+            usd_balance: String(USD.data.rate * ethAmount)
+        }])
+    }, [props.selectedWallet]);
+
     useEffect(() => {
-        getWalletData();
-    }, [getWalletData]);
+        setWalletData([])
+        if(props.selectedWallet === "testWallet"){
+            getWalletData();
+        }
+        else{
+            getAPIData();
+        }
+    }, [getWalletData, getAPIData]);
 
     const titleStyle: CSSProperties = {
         textAlign: 'center', 
@@ -105,6 +132,7 @@ const Views = (props: Props) => {
             <div style={graphContainerStyle}>
                 <Line data={chartData} options={options} />
             </div>
+            <button onClick={()=>getAPIData()}>Refresh</button>
         </div>
     );
 };
