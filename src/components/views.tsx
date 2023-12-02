@@ -100,12 +100,12 @@ const Views = (props: Props) => {
     
 
     return (
-        <>
+        <div className='h-screen w-screen'>
             <h1 style={titleStyle}>Ethereum and USD Balance Over Time</h1>
             <div style={graphContainerStyle}>
                 <Line data={chartData} options={options} />
             </div>
-        </>
+        </div>
     );
 };
 

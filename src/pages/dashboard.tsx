@@ -31,7 +31,7 @@ function Dashboard(props: Props) {
   return (
     <div>
     <Header usernameApp={props.usernameApp}/>
-    <div className='flex'>
+    <div className='flex-row h-screen w-screen'>
     <Sidebar wallets={wallets} setWallets={setWallets} usernameApp={props.usernameApp}/>
     </div>
     </div>
