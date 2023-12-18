@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import axios from 'axios'
 
 // controller imports
 import authentication from '../controllers/authentication';
@@ -32,6 +33,18 @@ router.post(
     res.status(200).json({ message: 'successfully logged in' });
   }
 );
+
+router.post('/proxy', async (req, res) => {
+  try {
+    console.log(req.body.url)
+      const response = await axios.get(`https://api.etherscan.io${req.body.url}`);
+      res.json(response.data);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message); // No TypeScript error
+    }
+  }
+});
 
 // logout
 
